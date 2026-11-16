@@ -38,7 +38,7 @@ RUN /usr/bin/apt-source.sh
 #  put package installation here, e.g.,
 #     RUN apt-get update && apt-get install -y --no-install-recommends somepackage
 #
-#
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 #
 # Install the system files found in the _system directory
 #
@@ -69,5 +69,6 @@ ADD $labdir/$lab.tar.gz $HOME
 #  The first thing that executes on the container.
 #
 USER root
+RUN chmod +x /home/$user_name/generate_traffic.sh
 CMD ["/bin/bash", "-c", "exec /sbin/init --log-target=journal 3>&1"]
 
